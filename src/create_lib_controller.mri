@@ -1,0 +1,5 @@
+create libcontroller.a
+addmod controller.o
+addlib libparsermodel.a
+save
+end
