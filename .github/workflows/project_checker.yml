@@ -1,0 +1,25 @@
+name: Linter check and cppcheck
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install build essentials
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential clang-format cppcheck lcov libgtest-dev
+
+    - name: Run lint
+      run: cd src/ && make lint
+
+    - name: Run cppcheck
+      run: cd src/ && cppcheck --language=c++ **/*.cpp **/*.h
